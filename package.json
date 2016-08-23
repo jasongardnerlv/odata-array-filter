@@ -1,0 +1,43 @@
+{
+  "name": "odata-array-filter",
+  "description": "TODO",
+  "version": "0.0.1",
+  "homepage": "https://github.com/jasongardnerlv/odata-array-filter",
+  "author": {
+    "name": "Jason Gardner",
+    "email": "jason.gardner.lv@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jasongardnerlv/odata-array-filter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jasongardnerlv/odata-array-filter/issues"
+  },
+  "license": "MIT",
+  "main": "lib/odata-array-filter",
+  "engines": {
+    "node": ">= 0.6.0"
+  },
+  "scripts": {
+    "test": "grunt test",
+    "ci": "grunt ci"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~1.0.1",
+    "grunt-cli": "~1.2.0",
+    "grunt-contrib-concat": "~1.0.1",
+    "grunt-contrib-uglify": "~1.0.1",
+    "grunt-contrib-jshint": "~1.0.0",
+    "grunt-mocha-test": "~0.12.7",
+    "mocha": "~2.5.3",
+    "chai": "~3.5.0",
+    "istanbul": "~0.4.5",
+    "grunt-istanbul": "~0.7.1"
+  },
+  "keywords": [
+    "odata",
+    "filter"
+  ]
+}

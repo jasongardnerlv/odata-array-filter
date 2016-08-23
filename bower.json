@@ -1,0 +1,11 @@
+{
+  "name": "odata-array-filter",
+  "version": "0.0.1",
+  "main": "dist/odata-array-filter.min.js",
+  "dependencies": {},
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ]
+}

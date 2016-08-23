@@ -1,2 +1,9 @@
+
 # odata-array-filter
-Small library to apply OData filters to an array of javascript objects
+
+
+### TODO
+
+### License
+Copyright (c) 2016 Jason Gardner
+Licensed under the MIT license.
