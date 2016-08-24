@@ -1,16 +1,18 @@
 'use strict';
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
 
-  // Project configuration.
   grunt.initConfig({
-    // Metadata.
     pkg: grunt.file.readJSON('package.json'),
     banner: '/*! <%= pkg.name %> - v<%= pkg.version %>' +
         ' - <%= pkg.homepage %>' +
         ' - (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>' +
         ' - licensed <%= pkg.license %> */\n',
-    // Task configuration.
+    clean: {
+      all: {
+        src: ['dist','coverage']
+      }
+    },
     concat: {
       options: {
         banner: '<%= banner %>',
@@ -41,7 +43,7 @@ module.exports = function (grunt) {
         options: {
           jshintrc: 'lib/.jshintrc'
         },
-        src: ['lib/**/*.js']
+        src: ['lib/odata-array-filter.js']
       },
       test: {
         options: {
@@ -51,7 +53,7 @@ module.exports = function (grunt) {
       }
     },
     instrument: {
-      files: 'lib/*.js',
+      files: 'lib/odata-array-filter.js',
       options: {
         lazy: true,
         basePath: 'coverage/instrument/'
@@ -60,14 +62,10 @@ module.exports = function (grunt) {
     reloadTasks : {
       rootPath : 'coverage/instrument/lib'
     },
-    mocha: {
-      test: {
-        src: ['test/tests.html']
-      }
-    },
     mochaTest: {
       options: {
-        reporter: 'spec'
+        reporter: 'spec',
+        require: ['lib/odata-parser','coverage/instrument/lib/odata-array-filter']
       },
       src: ['test/*.js']
     },
@@ -87,6 +85,7 @@ module.exports = function (grunt) {
   });
 
   // These plugins provide necessary tasks.
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -97,10 +96,10 @@ module.exports = function (grunt) {
   grunt.registerTask('dist', ['test', 'concat', 'uglify']);
 
   // Check everything is good
-  grunt.registerTask('test', ['jshint', 'instrument', 'reloadTasks', 'mochaTest', 'storeCoverage', 'makeReport']);
+  grunt.registerTask('test', ['clean:all', 'jshint', 'instrument', 'reloadTasks', 'mochaTest', 'storeCoverage', 'makeReport']);
 
   // Default task.
   grunt.registerTask('default', 'test');
-  grunt.registerTask('ci', ['test', 'coveralls']);
+  grunt.registerTask('ci', ['test']);
 
 };
