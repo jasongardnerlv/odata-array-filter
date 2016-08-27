@@ -60,27 +60,38 @@ ODataArrayFilter = (function() {
     }
   };
 
-  function _getFieldName(obj) {
-    if (obj.name) {
-      return obj.name;
-    } else if (obj.type) {
-      if (obj.type === 'functioncall') {
-        return obj.args[0].name; //TODO nested functions
+  function _getFieldName(filter) {
+    if (filter.type) {
+      if (filter.type === 'property') {
+        return filter.name;
+      } else if (filter.type === 'functioncall') {
+        switch (filter.func) {
+          case 'tolower':
+          case 'toupper':
+            return _getFieldName(filter.args[0]);
+          case 'substringof':
+            return _getFieldName(filter.args[1]);
+          default:
+            throw new Error('unrecognized functioncall func: ' + filter.func);
+        }
       } else {
-        throw new Error('unrecognized type: ' + obj.type);
+        throw new Error('unrecognized type: ' + filter.type);
       }
     } else {
-      throw new Error('could not find the field name');
+      throw new Error('could not find the field type');
     }
   }
 
-  function _getFieldValue(obj, val) {
-    if (val !== null && obj.type && obj.type === 'functioncall') {
-      switch (obj.func) {
+  function _getFieldValue(filter, val) {
+    if (val !== null && filter.type && filter.type === 'functioncall') {
+      switch (filter.func) {
         case 'tolower':
           return val.toLowerCase();
         case 'toupper':
           return val.toUpperCase();
+        case 'substringof':
+          val = _getFieldValue(filter.args[1], val);
+          return val.indexOf(filter.args[0].value) >= 0;
       }
     }
     return val;

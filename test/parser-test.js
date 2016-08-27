@@ -121,6 +121,18 @@ describe('ODataFilterParser', function() {
     expect(arr[1]).to.equal(testArray[4]);
   });
 
+  it('should handle substringof', function() {
+    var arr = _parse("substringof('zwit', email) eq true");
+    expect(arr.length).to.equal(1);
+    expect(arr[0]).to.equal(testArray[4]);
+  });
+
+  it('should handle the combination of tolower and substringof', function() {
+    var arr = _parse("substringof('entu', tolower(company)) eq true");
+    expect(arr.length).to.equal(1);
+    expect(arr[0]).to.equal(testArray[3]);
+  });
+
 });
 
 

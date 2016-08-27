@@ -21,6 +21,7 @@
   },
   "scripts": {
     "test": "grunt test",
+    "dist": "grunt dist",
     "ci": "grunt ci"
   },
   "dependencies": {},
