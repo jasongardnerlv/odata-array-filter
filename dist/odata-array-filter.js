@@ -2752,7 +2752,7 @@ ODataParser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, a, list) {
                                             if (list === "") list = [];
-                                            if (require('util').isArray(list[0])) {
+                                            if (Array.isArray(list[0])) {
                                                 list = list[0];
                                             }
                                             list.unshift(a);
@@ -3035,7 +3035,7 @@ ODataParser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, i, list) {
                                             if (list === "") list = [];
-                                            if (require('util').isArray(list[0])) {
+                                            if (Array.isArray(list[0])) {
                                                 list = list[0];
                                             }
                                             list.unshift(i);
@@ -3561,7 +3561,7 @@ ODataParser = (function(){
           result0 = (function(offset, i, list) {
         
                                             if (list === "") list = [];
-                                            if (require('util').isArray(list[0])) {
+                                            if (Array.isArray(list[0])) {
                                                 list = list[0];
                                             }
                                             list.unshift(i);
@@ -3698,7 +3698,7 @@ ODataParser = (function(){
         }
         if (result0 !== null) {
           result0 = (function(offset, i, list) {
-                                            if (require('util').isArray(list[0])) {
+                                            if (Array.isArray(list[0])) {
                                                 list = list[0];
                                             }
                                             return "/" + i + list;
@@ -3837,7 +3837,7 @@ ODataParser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, i, list) {
                                             if (list === "") list = [];
-                                            if (require('util').isArray(list[0])) {
+                                            if (Array.isArray(list[0])) {
                                                 list = list[0];
                                             }
                                             list.unshift(i);
