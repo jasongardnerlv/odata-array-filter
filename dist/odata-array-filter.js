@@ -80,14 +80,8 @@ ODataArrayFilter = (function() {
             return _getFieldName(filter.args[0]);
           case 'substringof':
             return _getFieldName(filter.args[1]);
-          default:
-            throw new Error('unrecognized functioncall func: ' + filter.func);
         }
-      } else {
-        throw new Error('unrecognized type: ' + filter.type);
       }
-    } else {
-      throw new Error('could not find the field type');
     }
   }
 
@@ -124,14 +118,10 @@ ODataArrayFilter = (function() {
         return _arrayUniqueConcat(_processLeftRight(filter.left, arr), _processLeftRight(filter.right, arr));
       case 'and':
         return _processLeftRight(filter.right, _processLeftRight(filter.left, arr));
-      default:
-        throw new Error('unrecognized expression type: ' + filter.type);
     }
   }
 
   function _filterArray(filters, arr) {
-    /* global JSON */
-    // console.dir(JSON.stringify(filters.$filter));
     if (filters.$filter) {
       arr = _processLeftRight(filters.$filter, arr);
     }

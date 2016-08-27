@@ -146,16 +146,14 @@ describe('ODataFilterParser', function() {
     expect(arr[0]).to.equal(testArray[3]);
   });
 
+  it('should handle a really complicated expression', function() {
+    var arr = _parse("((eyeColor ne null) and " +
+      "((substringof('shawna',tolower(name)) eq true) or " +
+      "(substringof('shawna',tolower(email)) eq true) or " +
+      "(substringof('shawna',tolower(greeting)) eq true))) and " +
+      "(favoriteFruit eq 'apple' or favoriteFruit eq null)");
+    expect(arr.length).to.equal(1);
+    expect(arr[0]).to.equal(testArray[2]);
+  });
+
 });
-
-
-/*
-field2 eq 51228161576219231295215871M
-field1 lt 100 or field1 eq null
-(field2 eq 51228161576219231295215871M) and (field1 lt 100 or field1 eq null)
-substringof('foobar',tolower(field2))
-(field2 eq 51228161576219231295215871M) and (substringof('foobar',tolower(field3)))
-(substringof('foobar',tolower(field2)) or substringof('foobar',tolower(field3)) or substringof('foobar',tolower(field4))) and (field1 lt 100 or field1 eq null)
-((field2 eq 51228161576219231295215871M) and (substringof('foobar',tolower(field3)) or substringof('foobar',tolower(field4)) or substringof('foobar',tolower(field5)))) and (field1 lt 100 or field1 eq null)
-datefield1 ge datetime'2012-08-01T00:00:00' and datefield1 lt datetime'2014-12-02T00:00:00'
-*/
