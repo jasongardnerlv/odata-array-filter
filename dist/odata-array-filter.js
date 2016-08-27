@@ -14,6 +14,15 @@ ODataArrayFilter = (function() {
     };
   })(this);
 
+  function _arrayUniqueConcat(a1, a2) {
+    for (var i = a2.length - 1; i >= 0; i--) {
+      if (a1.indexOf(a2[i]) === -1) {
+        a1.push(a2[i]);
+      }
+    }
+    return a1;
+  }
+
   function _parseFilter(filterString) {
     if (filterString.charAt(0) !== '$') {
       filterString = '$filter=' + filterString;
@@ -111,6 +120,12 @@ ODataArrayFilter = (function() {
           var propVal = _getFieldValue(filter.left, obj[prop]);
           return evaluators[filter.type + 'Evaluator'](propVal, value);
         });
+      case 'or':
+        return _arrayUniqueConcat(_processLeftRight(filter.left, arr), _processLeftRight(filter.right, arr));
+      case 'and':
+        return _processLeftRight(filter.right, _processLeftRight(filter.left, arr));
+      default:
+        throw new Error('unrecognized expression type: ' + filter.type);
     }
   }
 

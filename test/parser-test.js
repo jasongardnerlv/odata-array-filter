@@ -133,6 +133,19 @@ describe('ODataFilterParser', function() {
     expect(arr[0]).to.equal(testArray[3]);
   });
 
+  it('should handle ORed expressions', function() {
+    var arr = _parse("age lt 30 or age eq null");
+    expect(arr.length).to.equal(2);
+    expect(arr[0]).to.equal(testArray[3]);
+    expect(arr[1]).to.equal(testArray[1]);
+  });
+
+  it('should handle ANDed expressions', function() {
+    var arr = _parse("registered lt datetime'2016-08-10T00:00:00' and registered gt datetime'2016-08-04T00:00:00'");
+    expect(arr.length).to.equal(1);
+    expect(arr[0]).to.equal(testArray[3]);
+  });
+
 });
 
 
@@ -141,7 +154,7 @@ field2 eq 51228161576219231295215871M
 field1 lt 100 or field1 eq null
 (field2 eq 51228161576219231295215871M) and (field1 lt 100 or field1 eq null)
 substringof('foobar',tolower(field2))
-(MachineGroupId eq 51228161576219231295215871M) and (substringof('foobar',tolower(field3)))
+(field2 eq 51228161576219231295215871M) and (substringof('foobar',tolower(field3)))
 (substringof('foobar',tolower(field2)) or substringof('foobar',tolower(field3)) or substringof('foobar',tolower(field4))) and (field1 lt 100 or field1 eq null)
 ((field2 eq 51228161576219231295215871M) and (substringof('foobar',tolower(field3)) or substringof('foobar',tolower(field4)) or substringof('foobar',tolower(field5)))) and (field1 lt 100 or field1 eq null)
 datefield1 ge datetime'2012-08-01T00:00:00' and datefield1 lt datetime'2014-12-02T00:00:00'
