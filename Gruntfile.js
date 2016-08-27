@@ -19,7 +19,7 @@ module.exports = function(grunt) {
         stripBanners: true
       },
       dist: {
-        src: ['lib/<%= pkg.name %>.js'],
+        src: ['lib/odata-parser.js','lib/<%= pkg.name %>.js'],
         dest: 'dist/<%= pkg.name %>.js'
       }
     },
