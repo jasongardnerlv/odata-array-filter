@@ -3,10 +3,13 @@
 var chai = require('../node_modules/chai/chai.js');
 var expect = chai.expect;
 
-var _parse = function(str) {
+var _getTestArray = function() {
   delete require.cache[require.resolve('../test/test-data.json')];
-  var testArray = require('../test/test-data.json');
-  return ODataArrayFilter.parseAndFilter(str, testArray).data;
+  return require('../test/test-data.json');
+};
+
+var _parse = function(str) {
+  return ODataArrayFilter.parseAndFilter(str, _getTestArray()).data;
 };
 
 /* global ODataArrayFilter */
@@ -187,6 +190,14 @@ describe('ODataFilterParser', function() {
     expect(arr.length).to.equal(2);
     expect(arr[0].index).to.equal(2);
     expect(arr[1].index).to.equal(4);
+    arr = _parse("$top=2&$skip=1&$filter=age ne null&$orderby=company asc");
+    expect(arr.length).to.equal(2);
+    expect(arr[0].index).to.equal(4);
+    expect(arr[1].index).to.equal(2);
+    arr = _parse("$top=2&$skip=1&$filter=age ne null&$orderby=foobar asc");
+    expect(arr.length).to.equal(2);
+    expect(arr[0].index).to.equal(2);
+    expect(arr[1].index).to.equal(3);
   });
 
 });
