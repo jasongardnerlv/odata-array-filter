@@ -5615,6 +5615,7 @@ ODataArrayFilter = (function() {
         }
       });
     }
+    var totalCount = arr.length;
     var top = filters.$top || -1;
     var skip = filters.$skip || 0;
     if (top > -1) {
@@ -5622,7 +5623,7 @@ ODataArrayFilter = (function() {
     } else if (skip > 0) {
       arr = arr.slice(skip);
     }
-    return arr;
+    return {data:arr,totalCount:totalCount};
   }
 
   function ODataArrayFilter() {

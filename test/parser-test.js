@@ -6,7 +6,7 @@ var expect = chai.expect;
 var _parse = function(str) {
   delete require.cache[require.resolve('../test/test-data.json')];
   var testArray = require('../test/test-data.json');
-  return ODataArrayFilter.parseAndFilter(str, testArray);
+  return ODataArrayFilter.parseAndFilter(str, testArray).data;
 };
 
 /* global ODataArrayFilter */
